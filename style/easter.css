@@ -1,0 +1,32 @@
+body {
+  background: #ff0137;
+}
+
+.rainbow .wave-1 {
+  background: #ff84bd;
+}
+
+.rainbow .wave-2 {
+  background: #ffad31;
+}
+
+.rainbow .wave-3 {
+  background: #ffd684;
+}
+
+.rainbow .wave-4 {
+  background: #5abd7b;
+}
+
+.rainbow .wave-5 {
+  background: #7bceff;
+}
+
+.rainbow .wave-6 {
+  background: #9c42a5;
+  
+}
+
+.nyan-cat {
+    margin-top: -25px;
+}

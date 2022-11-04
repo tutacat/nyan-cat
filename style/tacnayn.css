@@ -1,0 +1,54 @@
+body {
+  background: #77000d;
+}
+
+.star {
+    font-size: 10px;
+    position: absolute;
+    z-index: 1;
+}
+    .star .dot {
+        background: rgba(0,0,0,0);
+        height: 2em;
+        width: 2em;
+    }
+
+    .star .wrapper {
+        background-image: url(stars/skullr.gif);
+        background-size: 100%,100%;
+        height: 40px;
+        width: 40px;
+        left: 100px;
+    }
+
+
+
+.rainbow .wave-1 {
+  background:#7b7b79;
+}
+
+.rainbow .wave-2 {
+  background:#98989a;
+}
+
+.rainbow .wave-3 {
+  background:#babdbc;
+}
+
+.rainbow .wave-4 {
+  background:#fefefe;
+}
+
+.rainbow .wave-5 {
+  background:#7c7c7c;
+}
+
+.rainbow .wave-6 {
+  background:#9f9696;
+}
+
+.nyan-cat {
+    margin-left: 200px;
+}
+
+

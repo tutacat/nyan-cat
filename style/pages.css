@@ -1,0 +1,28 @@
+@font-face {
+  font-family:SilkscreenNormal;
+  src:url(fonts/slkscr.ttf),url(fonts/slkscr.eot);
+  font-weight:400;
+  font-style:normal;
+}
+
+body {
+  background:#0f4d8f;
+  text-transform:uppercase;
+  color:white;
+  font-family:SilkscreenNormal, Monaco, "Courier New", Courier, monospace;
+  overflow-x:hidden;
+  font-size:14px;
+}
+
+body a:visited {
+  color:white;
+}
+
+body a {
+  color:white;
+
+}
+
+#title {
+  text-align: center;
+}

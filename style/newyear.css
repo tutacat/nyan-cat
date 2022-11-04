@@ -1,0 +1,23 @@
+.star .dot{
+  background: #FF00FF;
+}
+
+.star.frame-1 .dot, .star.frame-2 .dot {
+  background: red;
+}
+
+.star.frame-3 .dot-2, .star.frame-3 .dot-4, .star.frame-3 .dot-6, .star.frame-3 .dot-8 {
+  background: yellow;
+}
+
+.star.frame-3 .dot-1, .star.frame-3 .dot-5, .star.frame-3 .dot-7, .star.frame-3 .dot-9 {
+  background: #00FF00;
+}
+
+.star.frame-4 .dot {
+  background:#0000FF;
+}
+
+.nyan-cat {
+    margin-top: -15px;
+}

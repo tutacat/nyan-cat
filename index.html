@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+    <head>    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta property="og:title" content="Nyan.Cat!" />
+        <meta property="og:description" content="The Official Homepage of Nyan Cat!" />
+        <meta property="og:image" content="https://www.nyan.cat/cats/original.gif" />
+    
+        <title> NYAN.CAT! </title>
+        <style type="text/css" id="catStyle"></style>
+        <script type="text/javascript">
+            console.log("Main inline loaded.")
+            var defaultName = 'original';
+            var catAudio = null;
+            var catImg = null;
+            var catStyle = document.getElementById('catStyle');
+            var tim = 0;
+            var speed = 1;
+            var updatedName = '';
+            today = new Date();
+            if (today.getMonth()==0&&today.getDate()==1) {
+                defaultName = 'newyear';
+            }
+            window.catName = location.hash.replace('#','');
+            if (!catName) {
+                if (location.search.includes('cat')) {
+                    console.log("Cat in search, moving to rug...");
+                    catName = new URL(location).searchParams.get('cat') || defaultName;
+                    console.log("Purr.");
+                } else {
+                    console.log("No cat specified.");
+                    location.hash = defaultName;
+                    catName = defaultName;
+                }
+            }
+            console.log("Initial: '"+catName+"'");
+            async function updateCat(name) {
+                if (name != '' && name != updatedName) {
+                    console.log("Update: '"+catName+"'");
+                    if (name == 'bloon') {name = 'balloon'}
+                    catName = name;
+                    if (catName != updatedName) {
+                        updatedName = catName;
+                        if (window.displayName) {
+                            if (catName == 'original') {
+                                displayName.innerText = 'Nyan Cat';
+                            } else if (catName == 'tacnayn') {
+                                displayName.innerText = 'taC nayN';
+                            } else if (catName == 'nyandoge') {
+                                displayName.innerText = 'Doge Cat';
+                            } else if (catName == 'nyancoin') {
+                                displayName.innerText = 'coin Cat';
+                            } else if (catName == 'pikanyan') {
+                                displayName.innerText = 'Pika Cat';
+                            } else if (catName == 'j5') {
+                                displayName.innerText = 'Catson 5';
+                            } else if (catName == 'gb') {
+                                displayName.innerText = 'Gameboy Cat';
+                            } else if (catName == 'vday') {
+                                displayName.innerText = 'Valentine Cat';
+                            } else if (catName == '404') {
+                                displayName.innerText = '?Missing';
+                            } else if (catName == 'oldnewyear') {
+                                displayName.innerText = 'newyear Cat';
+                            } else if (catName == 'fiesta') {
+                                displayName.innerText = 'fiesta Dog';
+                            } else if (catName == 'tacodog') {
+                                displayName.innerText = 'taco Dog';
+                            } else if (catName == 'nyanvirus') {
+                                displayName.innerText = 'virus Cat';
+                            } else if (catName == 'smurfcat') {
+                                displayName.innerText = 'Smurf Cat';
+                            } else if (catName == 'melon') {
+                                displayName.innerText = 'Melon Bird';
+                            } else if (catName == 'watermelon') {
+                                displayName.innerText = 'Melon Bird';
+                            } else {
+                                displayName.innerText = catName+' Cat';
+                            }
+                        }
+
+                        if (['watermelon','melon','pirate','pumpkin','zombie','bday','breakfast','easter','grumpy','melon','watermelon','mummy','nyancoin','paddy','star','oldnyan','smooth'].includes(catName)) {
+                            catAudio[1].src = `music/original.mp3`;
+                            catAudio[2].src = `music/original.ogg`;
+                        } else if (['ganja','jamaica'].includes(catName)) {
+                            catAudio[1].src = `music/ganja.mp3`;
+                            catAudio[2].src = `music/ganja.ogg`;
+                        } else if (catName == 'tacodog') {
+                            catAudio[1].src = `music/fiesta.mp3`;
+                            catAudio[2].src = `music/fiesta.ogg`;
+                        } else if (catName == 'floppy') {
+                            catAudio[1].src = `music/gb.mp3`;
+                            catAudio[2].src = `music/gb.ogg`;
+                        } else if (catName == 'skrillex') {
+                            catAudio[1].src = `music/dub.mp3`;
+                            catAudio[2].src = `music/dub.ogg`;
+                        } else if (catName == 'fat') {
+                            catAudio[1].src = `music/sad.mp3`;
+                            catAudio[2].src = `music/sad.ogg`;
+                        } else if (catName == 'nyanvirus') {
+                            catAudio[1].src = `music/404.mp3`;
+                            catAudio[2].src = `music/404.ogg`;
+                        } else if (catName == 'oldnewyear') {
+                            catAudio[1].src = `music/newyear.mp3`;
+                            catAudio[2].src = `music/newyear.ogg`;
+                        } else {
+                            catAudio[1].src = `music/${catName}.mp3`;
+                            catAudio[2].src = `music/${catName}.ogg`;
+                        }
+                        catAudio[0].load();
+                        result = fetch(`style/${catName}.css`);
+                        tim = catAudio[0].currentTime;
+                        speed = catAudio[0].playbackRate;
+                        e = document.createElement("style");
+                        e.id = 'catStyle';
+                        e.type = 'text/css';
+                        catStyle.parentElement.replaceChild(e,catStyle);
+                        catStyle = e;
+                        catImg.src = `cats/${catName}.gif`;
+                        e.innerHTML = (await result).text;
+                    } else {
+                        console.log("Update called for same name.");
+                    }
+                }
+                if (location.hash != '#'+catName) {
+                    location.hash = catName;
+                }
+            }
+            console.log("Update function loaded.");
+        </script>
+        <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', ()=>{
+            console.log("After-load, fetching elements, adding listener.")
+            catStyle = document.getElementById("catStyle");
+            catImg = document.querySelector("div#cat>img");
+            catAudio = document.querySelectorAll("audio, audio>source");
+            catAudio[0].preservesPitch = false;
+            catAudio[0].addEventListener("loadeddata", ()=>{
+                if (window.tim) {
+                    catAudio[0].currentTime = tim % catAudio[0].duration;
+                    catAudio[0].playbackRate = speed;
+                    tim = 0;
+                }
+            });
+            window.addEventListener("hashchange", ()=>{
+                updateCat(location.hash.replace('#',''));
+            });
+            updateCat(catName);
+        }, {once:true});
+        </script>
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="style/base2.css">
+
+        <script type="text/javascript" src="translations/base.js"></script>
+        <script type="text/javascript" src="translations/original.js"></script>
+        <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="scripts/konami.js"></script>
+          <script type="text/javascript" src="scripts/base2.js"></script>     
+    </head>
+
+    <body>
+        <div id="main" style="clear:both;">
+                <!-- Language Chooser -->
+                <ul id='langchooser' style="list-style-type: none;z-index:10;">
+                    <div id="langpick" class="slide2" style="cursor:pointer;">
+                        <a><div id='pal'>Pick a language! &nbsp;<img src="images/v.png" /></div></a>
+                    </div>
+                    <div class="view2" id="languages" style="display:none;">
+                        <li><a href="javascript:setValue('deflang', 'eng', 365);" onclick="changeLanguage('eng');"> English </a></li>
+                        <li><a href="javascript:setValue('deflang', 'nyn', 365);" onclick="changeLanguage('nyn');"> NYAN </a></li>
+                        <li><a href="javascript:setValue('deflang', 'esp', 365);" onclick="changeLanguage('esp');"> español </a></li>
+                        <li><a href="javascript:setValue('deflang', 'est', 365);" onclick="changeLanguage('est');"> eesti </a></li>
+                        <li><a href="javascript:setValue('deflang', 'por', 365);" onclick="changeLanguage('por');"> português </a></li>
+                        <li><a href="javascript:setValue('deflang', 'cat', 365);" onclick="changeLanguage('cat');"> català </a></li>
+                        <li><a href="javascript:setValue('deflang', 'frn', 365);" onclick="changeLanguage('frn');"> français </a></li>
+                        <li><a href="javascript:setValue('deflang', 'ger', 365);" onclick="changeLanguage('ger');"> Deutsch </a></li>
+                        <li><a href="javascript:setValue('deflang', 'hbw', 365);" onclick="changeLanguage('hbw');"> עברית </a></li>
+                        <li><a href="javascript:setValue('deflang', 'ind', 365);" onclick="changeLanguage('ind');"> bahasa Indonesia </a></li>
+                        <li><a href="javascript:setValue('deflang', 'pol', 365);" onclick="changeLanguage('pol');"> polski </a></li>
+                        <li><a href="javascript:setValue('deflang', 'rom', 365);" onclick="changeLanguage('rom');"> român </a></li>
+                        <li><a href="javascript:setValue('deflang', 'trk', 365);" onclick="changeLanguage('trk');"> Türk </a></li>
+                        <li><a href="javascript:setValue('deflang', 'krn', 365);" onclick="changeLanguage('krn');"> 한국 의 </a></li>
+                        <li><a href="javascript:setValue('deflang', 'jpn', 365);" onclick="changeLanguage('jpn');"> 日本語 </a></li>
+                    </div>
+                </ul>
+
+            <!-- Sidebar Navigation --> 
+            <div id="mySidenav" class="sidenav" style="opacity:.8;">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href="#original" title="Nyan Cat" alt="nyan cat style"><img src="images/thumbs/nyan.gif"></a>
+                <a href="#nyandoge" title="Doge Cat" alt="Doge cat"><img src="images/thumbs/nyandoge.gif"></a>
+                <a href="#nyancoin" title="Coin Cat" alt=""><img src="images/thumbs/nyancoin.gif"></a>
+                <a href="#gb" title="Gameboy Cat" alt="gameboy cat"><img src="images/thumbs/GB.gif"></a>
+                <a href="#technyancolor" title="Technyancolor Cat"><img src="images/thumbs/technyancolor.gif"></a>
+                <a href="#jazz" title="Jazz Cat" alt="jazz cat"><img src="images/thumbs/jazz.gif"></a>
+                    <a href="#mexinyan" title="Mexinyan Cat" alt="mexi-nyan cat"><img src="images/thumbs/mexinyan.gif"></a>
+                    <a href="#j5" title="Catson 5" alt="catson five"><img src="images/thumbs/jacksnyan.gif"></a>
+                    <a href="#nyaninja" title="Ninja Cat" alt="ninja cat"><img src="images/thumbs/nyaninja.gif"></a>
+                    <a href="#pirate" title="Pirate Cat" alt=""><img src="images/thumbs/pirate.gif"></a>
+                    <a href="#elevator" title="Elevator Cat" alt="elevator cat"><img src="images/thumbs/elevator.gif"></a>
+                    <a href="#pikanyan" title="Pika Cat" alt="pika cat"><img src="images/thumbs/pikanyan.gif"></a>
+                    <a href="#zombie" title="Zombie Cat" alt=""><img src="images/thumbs/zombie.gif"></a>
+                    <a href="#mummy" title="Mummy Cat" alt=""><img src="images/thumbs/mummy.gif"></a>
+                    <a href="#pumpkin" title="Pumpkin Cat" alt=""><img src="images/thumbs/pumpkin.gif"></a>
+                    <a href="#wtf" title="Glitch Cat" alt="glitch cat"><img src="images/thumbs/glitch.gif"></a>
+                    <a href="#jamaicnyan" title="Jamaicnyan Cat" alt="Jamaican nyan cat"><img src="images/thumbs/rasta.gif"></a>
+                    <a href="#america" title="Uhmurican' Cat" alt="American cat"><img src="images/thumbs/uhmurica.gif"></a>
+                    <a href="#retro" title="Retro Cat"><img src="images/thumbs/retro.gif"></a>
+                    <a href="#vday" title="Valentine Cat" alt="valentine cat"><img src="images/thumbs/vday.gif"></a>
+                    <a href="#sad" title="Sad Cat" alt="sad cat"><img src="images/thumbs/sadnyan.gif"></a>
+                    <a href="#tacnayn" title="taC nayN" alt="tack nayn (reversed nyan cat)"><img src="images/thumbs/tacnayn.gif"></a>
+                    <a href="#dub" title="Dub Cat" alt="dub cat"><img src="images/thumbs/dub.gif"></a></br>
+                    <a href="#slomo" title="Slomo Cat" alt="slow-mo cat"><img src="images/thumbs/slomo.gif"></a>
+                    <a href="#xmas" title="Xmas Cat" alt="christmas cat"><img src="images/thumbs/xmas.gif"></a>
+                    <a href="#fiesta" title="Fiesta Dog" alt="fiesta taco dog"><img src="images/thumbs/tacodog.gif"></a>
+                    <a href="#tacodog" title="Taco Dog" alt=""><img src="images/thumbs/tacodog.gif"></a>
+                <a href="#easter" title="Easter Cat" alt="Easter cat"><img src="images/thumbs/easter.gif"></a>
+                    <a href="#bday" title="Birthday Cat" alt="birthday cat"><img src="images/thumbs/bday.gif"></a>
+                <a href="#daft" title="Daft Cat" alt="Daft Punk cat"><img src="images/thumbs/daft.gif"></a>
+                <a href="#paddy" title="Paddy Cat" alt=""><img src="images/thumbs/paddy.gif"></a>
+                <a href="#breakfast" title="Breakfast Cat" alt=""><img src="images/thumbs/breakfast.gif"></a>
+                <a href="#melon" title="Melon Bird" alt=""><img src="images/thumbs/melonbird.gif"></a>
+                <a href="#star" title="Star Sheep" alt=""><img src="images/thumbs/starsheep.gif"></a>
+                    <a href="#balloon" title="Balloon Cat" alt="balloon cat"><img src="images/thumbs/balloon.gif"></a>
+                <a href="#grumpy" title="Grumpy Cat" alt=""><img src="images/thumbs/grumpy.gif"></a>            
+                      <a href="#newyear" title="New Year's Cat" alt="new year's cat"><img src="images/thumbs/newyear.gif"></a>
+                      <a href="#fat" title="Fat Cat" alt=""><img src="images/thumbs/fat.gif"></a>
+                      <a href="#floppy" title="Floppy Cat" alt=""><img src="images/thumbs/floppy.gif"></a>
+                      <a href="#manyan" title="Manyan Cat" alt=""><img src="images/thumbs/manyan.gif"></a>
+                      <a href="#oldnewyear" title="Old New Year's Cat" alt=""><img src="images/thumbs/oldnewyear.gif"></a>
+                      <a href="#oldnyan" title="Old Nyan Cat" alt=""><img src="images/thumbs/oldnyan.gif"></a>
+                      <a href="#skrillex" title="Skrillex Cat" alt=""><img src="images/thumbs/skrillex.gif"></a>
+                      <a href="#smooth" title="Smooth Cat" alt=""><img src="images/thumbs/smooth.gif"></a>
+                      <a href="#smurfcat" title="Smurf Cat" alt="Smurf cat"><img src="images/thumbs/smurfcat.gif"></a>
+                <a href="#" id="hidr" style="font-size:14px;color:#ffffff;margin:2px;" onclick="closeNav()">Hide this</a><br />
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <a href="#" onclick="closePlay();">
+                <div id="muctr" class="muctr">
+                    <img src="images/play.png" style="width:30px;height:50px;">
+                </div>
+            </a>
+
+            <div class="achievements"  style="margin-top:610px;margin-left:50px;">
+                <div class="ach" id="ach1"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/1c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">ONE THOUSNYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a onClick="$('div.ach1').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach2"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/2c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">OVER NYAN THOUSNYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach2').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach3"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/3c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">ONE HUNDRED THOUSNYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach3').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach4"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/4c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">FIVE HUNDRED THOUSNYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach4').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach5"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/5c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">ONE MILLINYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach5').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach6"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/6c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">FIVE MILLINYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach6').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach7"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/7c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">MISSINGNYAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach7').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach8"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/8c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">It's Raining Nyan!</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach8').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach9"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/9c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">NYAN FAN</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach9').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+                <div class="ach" id="ach10"><br />
+                    <div class="row">
+                        <div class="col-md-12" style="font-size:12px;text-align: center;">Achievement Unlocked!</div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12" style="text-align: center"><img style="border-radius:12px;margin-left:8px;"src="images/achievements/10c.png"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div  class="col-md-12" style="font-size:12px; text-align:center;">OBSESSED</div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row achlink" style="margin-top:15px;">
+                        <div class="col-md-12" style="text-align: center">
+                            <a href="#" onClick="popitup('stats.php')">Stats</a> &nbsp; 
+                            <a onClick="$('div.ach10').toggle();"href="#">CLOSE</a>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- Title Section -->
+            <div style="text-align:center;">
+                  <h1 id='head' style="font-size:44px;">Non-stop <span id="displayName">Nyan Cat</span></h1>
+
+                <!--<div class='bottom-pane'>-->
+                    <div id="bar">
+                        <a id="credits" href="#" onclick="popitup('credits.html')" style="cursor:pointer">Credits</a> &nbsp;
+                    </div>
+
+            <br /><br /><br />
+
+            <div id="containthecat" style="">
+                <div class="row" id="catheader" style="height:120px;">
+                    <div class="col-md-12"></div>
+                </div>
+                <div class="row" style=height:200px;>
+                                            <div class="col-md-7" style="padding:0;margin:0">
+                            <div class="slideshow">
+                                <div class="rainbows">
+                                                                               <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                                       <div class='rainbow frame-1'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                        <div class='rainbow frame-2'><div class='wave wave-1'></div><div class='wave wave-2'></div><div class='wave wave-3'></div><div class='wave wave-4'></div><div class='wave wave-5'></div><div class='wave wave-6'></div><div class='wave wave-7'></div></div>
+                                                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="padding:0;margin:0">
+                            <div id='cat' class='nyan-cat'>
+                                <img src="cats/original.gif">
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding:0;margin:0">
+                        </div>    
+                                        
+                </div>
+                <div class="row" id="cattrailer" style="height:80px;">
+                    <div class="col-md-12"></div>
+                </div>
+            </div><br />
+
+
+                  <!-- The Button -->
+            <div class="row">
+                <div class="col-md-3">
+                
+                <audio controls autoplay loop style="width:240px;">
+                    <source src="music/original.mp3">
+                    <source src="music/original.ogg">
+                </audio>
+                <button onclick="catAudio[0].playbackRate=0.5">Afternoon</button>
+                <button onclick="catAudio[0].playbackRate=1/1.35">Day core</button><br><br>
+                <button onclick="catAudio[0].playbackRate=1">Normal</button>
+                <button onclick="catAudio[0].playbackRate=1.35">nightcore</button>
+                <button onclick="catAudio[0].playbackRate=1.5">3AM</button>
+                </div>
+                <div class="col-md-6">
+                    <img src="images/lovebot.gif">
+                    <a href="#" onclick="openNav()" style="cursor:pointer"><img id="flav" src="images/languages/eng/button.png"></a>
+                    <img src="images/lovebot.gif"><br /><br />
+
+                    <!-- the counter -->
+                    <div id='timer' style="text-align: center;">
+                        <div id='ynf'>You've NYANED for</div>
+                        <div style="z-index:2;" class='time'>
+                            <div class='seconds' id='noblast'>0</div>
+                            <div id='sec'>seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="andcopy">
+                        <img src="images/andcopy2.png">
+                    </div><br />    
+                </div>
+            </div>
+    </div>
+    </body>
+</html>

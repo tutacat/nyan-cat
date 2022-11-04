@@ -1,0 +1,12 @@
+body {
+  background: #6c502d;
+  color: #dcbf9f;
+}
+
+.rainbow .wave-1, .rainbow .wave-3, .rainbow .wave-5, .rainbow .wave-7{
+  background:#a48865;
+}
+
+.rainbow .wave-2, .rainbow .wave-4, .rainbow .wave-6 {
+  background:#967A57;
+}

@@ -1,0 +1,13 @@
+.rainbow {
+  display: none;
+}
+
+.nyan-cat {
+  margin-left: -50px;
+  margin-top: -80px;
+}
+
+
+#containthecat {
+    height: 600px;
+}

@@ -1,0 +1,34 @@
+body {
+  background: #106b42;
+}
+
+.star .dot{
+  background: #ffff00;
+}
+
+.rainbow .wave-1 {
+  background:#19ad63;
+}
+.rainbow .wave-2 {
+  background: #19ad63;
+}
+
+.rainbow .wave-3 {
+  background: /*stupid message removed here king*/#ffffff;
+}
+
+.rainbow .wave-4 {
+  background: #ffffff;
+}
+
+.rainbow .wave-5 {
+  background: #ff9933;
+}
+
+.rainbow .wave-6 {
+  background: #ff9933;
+}
+
+.nyan-cat {
+  margin-top: -90px;
+}

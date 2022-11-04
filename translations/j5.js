@@ -1,0 +1,13 @@
+languages['ger']['head'] = 'NON-STOP JACKNYAN 5 CAT!'
+languages['trk']['head'] = 'MICHAEL JACKSNYAN CAT!'
+languages['jpn']['head'] = '止まらないJACKSNYAN5 猫！'
+languages['rom']['head'] = 'PISICA JACKSNYAN 5 FARA OPRIRE!'
+languages['eng']['head'] = 'NON-STOP JACKSON 5 CAT!'
+languages['esp']['head'] = '¡JACKSNYAN 5 CAT SIN FIN!'
+languages['frn']['head'] = 'NON-STOP JACKNYAN 5 CAT!'
+languages['cat']['head'] = 'JACKSNYAN 5 CAT IMPARABLE!'
+languages['pol']['head'] = 'KOT JACKSNYAN 5 NON-STOP!'
+languages['nyn']['head'] = 'NYAN-NYAN NYAN NYAN'
+languages['ind']['head'] = 'Jacksnyan cat 5 tanpa henti!'
+languages['krn']['head'] = '무한루프 JACKSNYAN 5  고양이!'
+languages['hbw']['head'] = "ג'קסוניאן 5 קאט בלי הפסקה"

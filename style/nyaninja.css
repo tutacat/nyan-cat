@@ -1,0 +1,8 @@
+.star .dot {
+  background: rgba(0,0,0,0);
+}
+
+.star .wrapper{
+  background-image: url(stars/ninjastar.gif);
+  background-size: 100%,100%;
+}

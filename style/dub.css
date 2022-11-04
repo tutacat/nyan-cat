@@ -1,0 +1,11 @@
+body {
+  background: #000;
+}
+
+.rainbow {
+  display: none;
+}
+
+.nyan-cat {
+  margin-left: -255px;
+}
