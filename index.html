@@ -9,18 +9,63 @@
         <title> NYAN.CAT! </title>
         <style type="text/css" id="catStyle"></style>
         <script type="text/javascript">
+            function getEasterEgg(date) {
+                switch (date) {
+                    case [1,1]:
+                        return 'newyear';
+                    case [12,31]:
+                        return 'newyear';
+                    case [2,14]:
+                        return 'vday';
+                    case [2,27]:
+                        return 'pikanyan';
+                    case [2,29]:
+                        return '404';
+                    case [3,8]:
+                        return 'gb';
+                    case [3,17]:
+                        return 'paddy';
+                    case [4,4]:
+                        return '404';
+                    case [4,14]: // May she rest in peace
+                        return 'grumpy';
+                    case [4,9]: // Update yearly, because the churches don't give a damn
+                    case [4,16]:
+                        return 'easter';
+                    case [4,30]:
+                        return 'jazz';
+                    case [7,28]:
+                        return 'elevator';
+                    case [8,13]:
+                        return 'zombie';
+                    case [8,31]:
+                        return 'pumpkin';
+                    case [9,16]:
+                        return 'mexinyan';
+                    case [12,5]:
+                        return 'ninja';
+                    default:
+                        if (date[0]==12 && date[1]>=20 && date[1]<=27) {
+                            return 'xmas';
+                        } else {
+                            return 'original';
+                        }
+                }
+            }
+
             console.log("Main inline loaded.")
-            var defaultName = 'original';
             var catAudio = null;
             var catImg = null;
             var catStyle = document.getElementById('catStyle');
+            console.log("Got catStyle");
             var tim = 0;
             var speed = 1;
             var updatedName = '';
+            console.log("Got rainbows");
+
             today = new Date();
-            if (today.getMonth()==0&&today.getDate()==1) {
-                defaultName = 'newyear';
-            }
+            var defaultName = getEasterEgg([today.getMonth()+1,today.getDate()]);
+
             window.catName = location.hash.replace('#','');
             if (!catName) {
                 if (location.search.includes('cat')) {
@@ -33,7 +78,80 @@
                     catName = defaultName;
                 }
             }
+
             console.log("Initial: '"+catName+"'");
+            function getDisplayName(catName) {
+                switch (catName) {
+                    case 'original':
+                        return 'Nyan Cat';
+                    case 'tacnayn':
+                        return 'taC nayN';
+                    case 'nyandoge':
+                        return 'Doge Cat';
+                    case 'nyancoin':
+                        return 'coin Cat';
+                    case 'pikanyan':
+                        return 'Pika Cat';
+                    case 'j5':
+                        return 'Catson 5';
+                    case 'gb':
+                        return 'Gameboy Cat';
+                    case 'vday':
+                        return 'Valentine Cat';
+                    case '404':
+                        return 'MISSINGNYAN';
+                    case 'oldnewyear':
+                        return 'newyear Cat';
+                    case 'fiesta':
+                        return 'fiesta Dog';
+                    case 'tacodog':
+                        return 'taco Dog';
+                    case 'nyanvirus':
+                        return 'virus Cat';
+                    case 'smurfcat':
+                        return 'Smurf Cat';
+                    case 'melon':
+                    case 'watermelon':
+                        return 'Melon Bird';
+                    default:
+                        return catName+' Cat';
+                }
+            }
+
+            function getFileName(catName) {
+                switch (catName) {
+                    case 'jamaica':
+                        return 'ganja';
+                    case 'tacodog':
+                        return 'fiesta';
+                    case 'floppy':
+                        return 'gb';
+                    case 'skrillex':
+                        return 'dub';
+                    case 'fat':
+                        return 'sad';
+                    case 'nyanvirus':
+                        return '404';
+                    case 'oldnewyear':
+                        return 'newyear';
+                    default:
+                        //return 'original';
+                        return catName;
+                }
+            }
+
+            function hasRainbows(catName) {
+                return !(['balloon','dub','elevator','fiesta','manyan','pirate','skrillex','star','tacodog'].includes(catName) );
+            }
+
+            function getStyleName(catName) {
+                if ( ['404','bloon','fat','floppy','ganja','jacksnyan','jazzcat','manyan','nyanamerica','nyancat','nyanvirus','oldnewyear','oldnyan','rasta','sadnyan','skrillex','slomocat','smooth','smurfcat','starsheep','tacodog','toaster','watermelon','xmasold'].includes(catName) ) {
+                    return 'original';
+                } else {
+                    return catName;
+                }
+            }
+
             async function updateCat(name) {
                 if (name != '' && name != updatedName) {
                     console.log("Update: '"+catName+"'");
@@ -41,83 +159,42 @@
                     catName = name;
                     if (catName != updatedName) {
                         updatedName = catName;
+
+
                         if (window.displayName) {
-                            if (catName == 'original') {
-                                displayName.innerText = 'Nyan Cat';
-                            } else if (catName == 'tacnayn') {
-                                displayName.innerText = 'taC nayN';
-                            } else if (catName == 'nyandoge') {
-                                displayName.innerText = 'Doge Cat';
-                            } else if (catName == 'nyancoin') {
-                                displayName.innerText = 'coin Cat';
-                            } else if (catName == 'pikanyan') {
-                                displayName.innerText = 'Pika Cat';
-                            } else if (catName == 'j5') {
-                                displayName.innerText = 'Catson 5';
-                            } else if (catName == 'gb') {
-                                displayName.innerText = 'Gameboy Cat';
-                            } else if (catName == 'vday') {
-                                displayName.innerText = 'Valentine Cat';
-                            } else if (catName == '404') {
-                                displayName.innerText = '?Missing';
-                            } else if (catName == 'oldnewyear') {
-                                displayName.innerText = 'newyear Cat';
-                            } else if (catName == 'fiesta') {
-                                displayName.innerText = 'fiesta Dog';
-                            } else if (catName == 'tacodog') {
-                                displayName.innerText = 'taco Dog';
-                            } else if (catName == 'nyanvirus') {
-                                displayName.innerText = 'virus Cat';
-                            } else if (catName == 'smurfcat') {
-                                displayName.innerText = 'Smurf Cat';
-                            } else if (catName == 'melon') {
-                                displayName.innerText = 'Melon Bird';
-                            } else if (catName == 'watermelon') {
-                                displayName.innerText = 'Melon Bird';
-                            } else {
-                                displayName.innerText = catName+' Cat';
-                            }
+                            window.displayName = getDisplayName(catName);
                         }
 
                         if (['watermelon','melon','pirate','pumpkin','zombie','bday','breakfast','easter','grumpy','melon','watermelon','mummy','nyancoin','paddy','star','oldnyan','smooth'].includes(catName)) {
-                            catAudio[1].src = `music/original.mp3`;
-                            catAudio[2].src = `music/original.ogg`;
-                        } else if (['ganja','jamaica'].includes(catName)) {
-                            catAudio[1].src = `music/ganja.mp3`;
-                            catAudio[2].src = `music/ganja.ogg`;
-                        } else if (catName == 'tacodog') {
-                            catAudio[1].src = `music/fiesta.mp3`;
-                            catAudio[2].src = `music/fiesta.ogg`;
-                        } else if (catName == 'floppy') {
-                            catAudio[1].src = `music/gb.mp3`;
-                            catAudio[2].src = `music/gb.ogg`;
-                        } else if (catName == 'skrillex') {
-                            catAudio[1].src = `music/dub.mp3`;
-                            catAudio[2].src = `music/dub.ogg`;
-                        } else if (catName == 'fat') {
-                            catAudio[1].src = `music/sad.mp3`;
-                            catAudio[2].src = `music/sad.ogg`;
-                        } else if (catName == 'nyanvirus') {
-                            catAudio[1].src = `music/404.mp3`;
-                            catAudio[2].src = `music/404.ogg`;
-                        } else if (catName == 'oldnewyear') {
-                            catAudio[1].src = `music/newyear.mp3`;
-                            catAudio[2].src = `music/newyear.ogg`;
+                            catAudioName = 'original';
                         } else {
-                            catAudio[1].src = `music/${catName}.mp3`;
-                            catAudio[2].src = `music/${catName}.ogg`;
+                            catAudioName = getFileName(catName);
                         }
-                        catAudio[0].load();
-                        result = fetch(`style/${catName}.css`);
+                        console.log(`audioName: ${catAudioName}`)
+
                         tim = catAudio[0].currentTime;
                         speed = catAudio[0].playbackRate;
+
+                        catAudio[1].src = `music/${catAudioName}.mp3`;
+                        catAudio[2].src = `music/${catAudioName}.ogg`;
+                        catAudio[0].load();
+
+                        catAudio[0].currentTime = (tim+0.03)%catAudio[0].duration;
+                        catAudio[0].playbackRate = speed;
+
+                        styleName = getStyleName(catName);
+                        result = fetch(`style/${styleName}.css`);
                         e = document.createElement("style");
                         e.id = 'catStyle';
                         e.type = 'text/css';
                         catStyle.parentElement.replaceChild(e,catStyle);
                         catStyle = e;
                         catImg.src = `cats/${catName}.gif`;
-                        e.innerHTML = (await result).text;
+                        if (!hasRainbows(catName)) {
+                            e.innerHTML = 'div.rainbows {\n    display: none;\n};\n';
+                        }
+                        e.innerHTML += (await result).text;
+
                     } else {
                         console.log("Update called for same name.");
                     }
@@ -129,24 +206,34 @@
             console.log("Update function loaded.");
         </script>
         <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', ()=>{
-            console.log("After-load, fetching elements, adding listener.")
-            catStyle = document.getElementById("catStyle");
-            catImg = document.querySelector("div#cat>img");
-            catAudio = document.querySelectorAll("audio, audio>source");
-            catAudio[0].preservesPitch = false;
-            catAudio[0].addEventListener("loadeddata", ()=>{
-                if (window.tim) {
-                    catAudio[0].currentTime = tim % catAudio[0].duration;
-                    catAudio[0].playbackRate = speed;
-                    tim = 0;
-                }
-            });
-            window.addEventListener("hashchange", ()=>{
-                updateCat(location.hash.replace('#',''));
-            });
-            updateCat(catName);
-        }, {once:true});
+            var containerRainbows = document.querySelector('div.rainbows');
+            function manualAutoPlay() {
+                if (!catAudio[0].playing) {
+                    catAudio[0].play()
+            }
+                window.removeEventListener('pointerdown',manualAutoPlay);
+                window.removeEventListener('keydown',manualAutoPlay);
+            }
+            window.addEventListener('DOMContentLoaded', ()=>{
+                console.log("After-load, fetching elements, adding listener.")
+                catStyle = document.getElementById("catStyle");
+                catImg = document.querySelector("div#cat>img");
+                catAudio = document.querySelectorAll("audio, audio>source");
+                catAudio[0].preservesPitch = false;
+                catAudio[0].addEventListener("loadeddata", ()=>{
+                    if (window.tim) {
+                        catAudio[0].currentTime = tim % catAudio[0].duration;
+                        catAudio[0].playbackRate = speed;
+                        tim = 0;
+                    }
+                });
+                window.addEventListener("hashchange", ()=>{
+                    updateCat(location.hash.replace('#',''));
+                });
+                updateCat(catName);
+                window.addEventListener('pointerdown', manualAutoPlay, {once: true});
+                window.addEventListener('keydown', manualAutoPlay, {once: true});
+            }, {once: true});
         </script>
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
