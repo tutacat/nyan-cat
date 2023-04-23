@@ -8,6 +8,7 @@
     
         <title> NYAN.CAT! </title>
         <style type="text/css" id="catStyle"></style>
+        <script src="scripts/index-preload.js"></script>
         <script type="text/javascript">
             function getEasterEgg(date) {
                 switch (date) {
@@ -53,7 +54,7 @@
                 }
             }
 
-            console.log("Main inline loaded.")
+            console.log("Preload code loaded.")
             var catAudio = null;
             var catImg = null;
             var catStyle = document.getElementById('catStyle');
@@ -113,12 +114,14 @@
                     case 'melon':
                     case 'watermelon':
                         return 'Melon Bird';
+                    case 'wtf':
+                        return 'Glitch Cat';
                     default:
                         return catName+' Cat';
                 }
             }
 
-            function getFileName(catName) {
+            function getAudioFileName(catName) {
                 switch (catName) {
                     case 'jamaica':
                         return 'ganja';
@@ -168,7 +171,7 @@
                         if (['watermelon','melon','pirate','pumpkin','zombie','bday','breakfast','easter','grumpy','melon','watermelon','mummy','nyancoin','paddy','star','oldnyan','smooth'].includes(catName)) {
                             catAudioName = 'original';
                         } else {
-                            catAudioName = getFileName(catName);
+                            catAudioName = getAudioFileName(catName);
                         }
                         console.log(`audioName: ${catAudioName}`)
 
